@@ -44,6 +44,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     f"postgresql://{DB_USER or 'postgres'}:{DB_PASSWORD or 'deepesh123'}@{DB_HOST or 'localhost'}:{DB_PORT or '5432'}/{DB_NAME or 'Jindal'}"
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "pool_pre_ping": True,
+    "pool_recycle": 300,
+}
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'uploads')
 app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024
 
@@ -839,7 +843,7 @@ import urllib.request as urllib_request_mod
 
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID', '')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET', '')
-GOOGLE_REDIRECT_URI = os.getenv('GOOGLE_REDIRECT_URI', 'http://localhost:5000/api/auth/google/callback')
+GOOGLE_REDIRECT_URI = os.getenv('GOOGLE_REDIRECT_URI', 'https://jpureva-f5j6.onrender.com/api/auth/google/callback')
 
 @app.route('/api/auth/google', methods=['GET'])
 def google_login():
