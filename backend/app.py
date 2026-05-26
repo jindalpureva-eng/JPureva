@@ -15,7 +15,11 @@ from werkzeug.utils import secure_filename
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=[
+    "https://jpureva.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:3000"
+])
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'change-this-secret')
 app.config['MAIL_SERVER'] = os.getenv('SMTP_HOST', os.getenv('EMAIL_HOST', 'smtp.gmail.com'))
